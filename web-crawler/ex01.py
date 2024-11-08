@@ -1,3 +1,5 @@
+# Esse script acessa algum site e printa todos os link's existentes no html
+
 import requests
 import re
 
