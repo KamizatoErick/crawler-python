@@ -20,12 +20,16 @@ titleList = [title.get_attribute('title') for title in titleElements]
 # Busca e guarda a quantidade em estoque de todos os livros
 stockList = []
 precoList = []
+totalPreco = 0
+totalEstoque = 0
 for title in titleElements:
     title.click()
     qtsEstoque = int(driver.find_element(By.CLASS_NAME,'instock').text.replace('In stock (','').replace(' available)',''))
     stockList.append(qtsEstoque)
     preco = float(driver.find_element(By.CLASS_NAME,'price_color').text.replace('£',''))
     precoList.append(preco)
+    totalPreco += preco
+    totalEstoque += qtsEstoque
     driver.back()
 
 # Mostra titulo e estoque de cada livro
@@ -34,5 +38,8 @@ dictDF = {'title': titleList,
           'stock': stockList}
 
 print(pd.DataFrame(dictDF))
+print(f'Valor total: £{totalPreco}')
+print(f'Estoque total: {totalEstoque}')
+print(f'Totais: {totalPreco*totalEstoque}')
 
 input('presione enter') 
